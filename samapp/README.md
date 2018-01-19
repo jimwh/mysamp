@@ -11,4 +11,3 @@
 - [django](https://www.djangoproject.com/)
 - [SQLite](http://www.sqlite.org/version3.html)   
 - [Pipenv and Virtual Environments](http://docs.python-guide.org/en/latest/dev/virtualenvs/#virtualenvironments-ref)
-- [PyCharm](https://www.jetbrains.com/pycharm/download/) 
