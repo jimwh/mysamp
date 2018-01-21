@@ -20,10 +20,16 @@ from rest_framework import routers
 
 from samapp.myapp import views
 
+from rest_framework.schemas import get_schema_view
+
 from rest_framework_swagger.views import get_swagger_view
 
 from django.views.generic.base import RedirectView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+API_TITLE = 'Demo API'
+API_DESCRIPTION = 'A Web API for creating and viewing highlighted code snippets.'
+schema_view = get_schema_view(title=API_TITLE)
 
 swagger_view = get_swagger_view(title='University-Student API')
 
@@ -68,6 +74,8 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^(?P<version>(v1))/openapi/', include('drf_openapi.urls')),
     url(r'^swagger/$', swagger_view),
+
+    url(r'^schema/$', schema_view),
 
 ]
 

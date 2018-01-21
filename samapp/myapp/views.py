@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+from rest_framework import permissions, viewsets
 
 from samapp.myapp.serializers import UserSerializer, GroupSerializer
 
 from samapp.myapp.models import University, Student
 from samapp.myapp.serializers import UniversitySerializer, StudentSerializer
+from samapp.myapp.permissions import IsOwnerOrReadOnly
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -26,9 +27,17 @@ class GroupViewSet(viewsets.ModelViewSet):
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        IsOwnerOrReadOnly, )
 
 
 class UniversityViewSet(viewsets.ModelViewSet):
     queryset = University.objects.all()
     serializer_class = UniversitySerializer
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        IsOwnerOrReadOnly, )
+
+
 
