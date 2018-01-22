@@ -11,6 +11,10 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
+    included_serializers = {
+        'groups': GroupSerializer,
+    }
+
     class Meta:
         model = User
         fields = ('url', 'username', 'email', 'groups')
@@ -25,14 +29,19 @@ class UniversitySerializer(serializers.ModelSerializer):
         model = University
         fields = ('url', 'name', 'last_mod_date')
 
+    class JSONAPIMeta:
+        included_resources = ['student']
+
 
 class StudentSerializer(serializers.ModelSerializer):
+    included_serializers = {
+        'universities': UniversitySerializer
+    }
+
     class Meta:
         model = Student
         fields = ('url', 'first_name', 'last_name', 'university')
 
-    # Uncomment this and the locations will be included by default.
-    # otherwise '?include=locations' must be added to the URL.
-    # class JSONAPIMeta:
-    #    included_resources = ['university']
+    class JSONAPIMeta:
+        included_resources = ['universities']
 

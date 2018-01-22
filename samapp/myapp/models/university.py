@@ -10,7 +10,8 @@ class University(models.Model):
     class Meta:
         verbose_name = "University"
         verbose_name_plural = "Universities"
+        ordering = ['name']
 
     def __str__(self):
-        return '%s, %s' % (self.name, self.last_mod_date)
+        return '%s:%s:%s' % (self.name, self.last_mod_date, self.id)
 
