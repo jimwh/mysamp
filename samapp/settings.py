@@ -39,12 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'samapp.myapp',
-    'rest_framework',
 
+    'rest_framework',
     'drf_openapi',
     'rest_framework_swagger',
     'debug_toolbar',
-
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -145,6 +145,8 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
 
 LOGGING = {

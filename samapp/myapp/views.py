@@ -1,5 +1,7 @@
+import django_filters.rest_framework
+
 from django.contrib.auth.models import User, Group
-from rest_framework import permissions, viewsets
+from rest_framework import generics, permissions, viewsets
 
 from samapp.myapp.serializers import UserSerializer, GroupSerializer
 
@@ -16,6 +18,12 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+
+
 class GroupViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
@@ -30,6 +38,7 @@ class StudentViewSet(viewsets.ModelViewSet):
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly,
         IsOwnerOrReadOnly, )
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
 
 
 class UniversityViewSet(viewsets.ModelViewSet):
@@ -38,6 +47,15 @@ class UniversityViewSet(viewsets.ModelViewSet):
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly,
         IsOwnerOrReadOnly, )
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
 
 
+class UniversityFilter(django_filters.FilterSet):
+    class Meta:
+        model = University
+        fields = ['name', 'last_mod_date']
 
+    #def university_list(request):
+    #    filter = UniversityFilter(request.GET, queryset=University.objects.all())
+    #    return render(request, 'my_app/template.html', {'filter': filter})
+    #
