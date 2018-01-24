@@ -9,6 +9,7 @@ class Student(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     university = models.ForeignKey(University)
+    owner = models.ForeignKey('auth.User', related_name='students', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Student"
