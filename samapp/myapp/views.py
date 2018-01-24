@@ -40,6 +40,9 @@ class StudentViewSet(viewsets.ModelViewSet):
         IsOwnerOrReadOnly, )
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
 
 class UniversityViewSet(viewsets.ModelViewSet):
     queryset = University.objects.all()
@@ -47,7 +50,11 @@ class UniversityViewSet(viewsets.ModelViewSet):
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly,
         IsOwnerOrReadOnly, )
+
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class UniversityFilter(django_filters.FilterSet):

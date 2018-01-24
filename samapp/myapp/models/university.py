@@ -18,5 +18,5 @@ class University(models.Model):
         return '%s:%s:%s' % (self.name, self.last_mod_date, self.id)
 
     def save(self, *args, **kwargs):
-        self.last_mod_date = datetime.now()
+        self.last_mod_date = datetime.now().date()
         super(University, self).save(*args, **kwargs)
