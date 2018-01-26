@@ -16,16 +16,14 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
-from rest_framework import routers
-
-from samapp.myapp import views
-
-from rest_framework.schemas import get_schema_view
-
-from rest_framework_swagger.views import get_swagger_view
-
 from django.views.generic.base import RedirectView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+from rest_framework import routers
+from rest_framework.schemas import get_schema_view
+from rest_framework_swagger.views import get_swagger_view
+
+from samapp.myapp import views
 
 API_TITLE = 'University-Student API'
 API_DESCRIPTION = 'A Web API for creating and viewing University-Student data model.'
