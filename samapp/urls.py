@@ -27,11 +27,10 @@ from rest_framework_swagger.views import get_swagger_view
 from django.views.generic.base import RedirectView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-API_TITLE = 'Demo API'
-API_DESCRIPTION = 'A Web API for creating and viewing highlighted code snippets.'
+API_TITLE = 'University-Student API'
+API_DESCRIPTION = 'A Web API for creating and viewing University-Student data model.'
 schema_view = get_schema_view(title=API_TITLE)
-
-swagger_view = get_swagger_view(title='University-Student API')
+swagger_view = get_swagger_view(title=API_TITLE)
 
 
 router = routers.DefaultRouter()
@@ -40,27 +39,6 @@ router.register(r'groups', views.GroupViewSet)
 
 router.register(r'universities', views.UniversityViewSet)
 router.register(r'students', views.StudentViewSet)
-
-
-"""
-urlpatterns = [
-    
-    url(r'^admin/',admin.site.urls),
-
-    # Wire up our API using automatic URL routing.
-    url(r'^$', RedirectView.as_view(url='/v1/api', permanent=False),
-    url(r'^v1/api/', include(router.urls)),
-
-    # Additionally, we include login URLs for the browsable API.
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^(?P<version>(v1))/openapi/', include('drf_openapi.urls')),
-    url(r'^swagger/$', swagger_view),
-
-]
-
-urlpatterns += router.urls
-
-"""
 
 urlpatterns = [
 
@@ -74,7 +52,6 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^(?P<version>(v1))/openapi/', include('drf_openapi.urls')),
     url(r'^swagger/$', swagger_view),
-
     url(r'^schema/$', schema_view),
 
 ]
