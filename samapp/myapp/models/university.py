@@ -1,13 +1,11 @@
-import uuid
-from datetime import datetime
 from django.db import models
+from .common import Common
 
 
-class University(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+class University(Common):
     name = models.CharField(max_length=50)
-    last_mod_date = models.DateField()
-    owner = models.ForeignKey('auth.User', related_name='universities', on_delete=models.CASCADE)
+
+    owner = models.ForeignKey('auth.Group', related_name='universities', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "University"
@@ -18,5 +16,5 @@ class University(models.Model):
         return '%s:%s:%s' % (self.name, self.last_mod_date, self.id)
 
     def save(self, *args, **kwargs):
-        self.last_mod_date = datetime.now().date()
+        # self.last_mod_date = datetime.now().date()
         super(University, self).save(*args, **kwargs)

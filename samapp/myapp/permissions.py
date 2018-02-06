@@ -1,4 +1,8 @@
+import logging
 from rest_framework import permissions
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
@@ -13,4 +17,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             return True
 
         # Write permissions are only allowed to the owner of the snippet.
-        return obj.owner == request.user
+        # return obj.owner == request.user
+        logger.info('what is up..................')
+        # return obj.owner == request.group
+        return True

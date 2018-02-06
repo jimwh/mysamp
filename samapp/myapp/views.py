@@ -1,3 +1,4 @@
+import logging
 import django_filters.rest_framework
 
 from django.contrib.auth.models import User, Group
@@ -8,6 +9,9 @@ from samapp.myapp.serializers import UserSerializer, GroupSerializer
 from samapp.myapp.models import University, Student
 from samapp.myapp.serializers import UniversitySerializer, StudentSerializer
 from samapp.myapp.permissions import IsOwnerOrReadOnly
+
+
+logger = logging.getLogger(__name__)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -41,7 +45,16 @@ class StudentViewSet(viewsets.ModelViewSet):
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        # serializer.save(owner=self.request.user)
+
+        # filter the Group model for current logged in user instance
+        query_set = Group.objects.filter(user=self.request.user)
+
+        # print to console for debug/checking
+        for g in query_set:
+            # this should print all group names for the user
+            print(g.name)  # or id or whatever Group field that you want to display
+        serializer.save(owner=1)
 
 
 class UniversityViewSet(viewsets.ModelViewSet):
@@ -54,13 +67,26 @@ class UniversityViewSet(viewsets.ModelViewSet):
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+
+        # filter the Group model for current logged in user instance
+        query_set = Group.objects.filter(user=self.request.user)
+
+        # print to console for debug/checking
+        for g in query_set:
+            # this should print all group names for the user
+            print(g.name)  # or id or whatever Group field that you want to display
+            logger.info("group name=%s", g.name)
+        serializer.save(owner=g)
+
+        # serializer.save(owner=self.request.user)
+        # serializer.save(owner=self.request.group)
 
 
 class UniversityFilter(django_filters.FilterSet):
     class Meta:
         model = University
         fields = ['name', 'last_mod_date']
+
 
     #def university_list(request):
     #    filter = UniversityFilter(request.GET, queryset=University.objects.all())

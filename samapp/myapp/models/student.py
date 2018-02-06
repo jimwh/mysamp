@@ -1,15 +1,13 @@
-import uuid
 from django.db import models
+from samapp.myapp.models import Common, University
 
-from samapp.myapp.models import University
 
-
-class Student(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+class Student(Common):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    university = models.ForeignKey(University)
-    owner = models.ForeignKey('auth.User', related_name='students', on_delete=models.CASCADE)
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
+
+    owner = models.ForeignKey('auth.Group', related_name='students', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Student"
