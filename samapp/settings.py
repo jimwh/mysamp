@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'samapp.myapp',
+    'myapp',
 
     'rest_framework',
     'drf_openapi',

@@ -1,5 +1,5 @@
 from django.db import models
-from samapp.myapp.models import Common, University
+from myapp.models import Common, University
 
 
 class Student(Common):

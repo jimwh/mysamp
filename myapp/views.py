@@ -4,11 +4,11 @@ import django_filters.rest_framework
 from django.contrib.auth.models import User, Group
 from rest_framework import generics, permissions, viewsets
 
-from samapp.myapp.serializers import UserSerializer, GroupSerializer
+from myapp.serializers import UserSerializer, GroupSerializer
 
-from samapp.myapp.models import University, Student
-from samapp.myapp.serializers import UniversitySerializer, StudentSerializer
-from samapp.myapp.permissions import IsOwnerOrReadOnly
+from myapp.models import University, Student
+from myapp.serializers import UniversitySerializer, StudentSerializer
+from myapp.permissions import IsOwnerOrReadOnly
 
 
 logger = logging.getLogger(__name__)
@@ -72,10 +72,13 @@ class UniversityViewSet(viewsets.ModelViewSet):
         query_set = Group.objects.filter(user=self.request.user)
 
         # print to console for debug/checking
+        g = None
         for g in query_set:
             # this should print all group names for the user
             print(g.name)  # or id or whatever Group field that you want to display
             logger.info("group name=%s", g.name)
+        if g is None:
+            print("dude...................add group first")
         serializer.save(owner=g)
 
         # serializer.save(owner=self.request.user)

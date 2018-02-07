@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from datetime import datetime
-from samapp.myapp.models import University
+from myapp.models import University
 
 
 # ./manage.py test samapp.myapp.tests.UniversityTestCase

@@ -23,7 +23,7 @@ from rest_framework import routers
 from rest_framework.schemas import get_schema_view
 from rest_framework_swagger.views import get_swagger_view
 
-from samapp.myapp import views
+from myapp import views
 
 API_TITLE = 'University-Student API'
 API_DESCRIPTION = 'A Web API for creating and viewing University-Student data model.'

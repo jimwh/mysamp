@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
-from samapp.myapp.models import University, Student
+from myapp.models import University, Student
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
